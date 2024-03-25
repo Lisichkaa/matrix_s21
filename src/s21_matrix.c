@@ -45,6 +45,81 @@ int s21_eq_matrix(matrix_t *A, matrix_t *B) {
   return errorCode;
 }
 
+int s21_sum_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
+  int errorCode = Error;
+
+  if (A->columns != B->columns || A->rows != B->rows) {
+    errorCode = CalcError;
+  } else {
+    errorCode = OK;
+    s21_create_matrix(A->rows, A->columns, result);
+
+    for (int i = 0; i < A->rows; ++i) {
+        for (int j = 0; j < A->columns; ++j) {
+            result->matrix[i][j] = A->matrix[i][j] + B->matrix[i][j];
+        }
+    }
+  }
+
+  return errorCode;
+}
+
+int s21_sub_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
+  int errorCode = Error;
+
+  if (A->columns != B->columns || A->rows != B->rows) {
+    errorCode = CalcError;
+  } else {
+    errorCode = OK;
+    s21_create_matrix(A->rows, A->columns, result);
+
+    for (int i = 0; i < A->rows; ++i) {
+        for (int j = 0; j < A->columns; ++j) {
+            result->matrix[i][j] = A->matrix[i][j] - B->matrix[i][j];
+        }
+    }
+  }
+
+  return errorCode;
+}
+
+int s21_mult_number(matrix_t *A, double number, matrix_t *result) {
+  int errorCode = Error;
+
+  if (A != NULL || result != NULL) {
+    errorCode = OK;
+    s21_create_matrix(A->rows, A->columns, result);
+
+    for (int i = 0; i < A->rows; i++) {
+      for (int j = 0; j < A->columns; j++) {
+        result->matrix[i][j] = A->matrix[i][j] * number;
+      }
+    }
+  }
+
+  return errorCode;
+}
+
+//The product of A = m × k by B = k × n is a matrix C = m × n = A × B of size m × n whose elements 
+//are defined by the equation C(i,j) = A(i,1) × B(1,j) + A(i,2) × B(2,j) + ... + A(i,k) × B(k,j).
+int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
+  int errorCode = Error;
+
+  if (A != NULL || B != NULL || result != NULL) {
+    errorCode = OK;
+    s21_create_matrix(A->rows, B->columns, result);
+
+    for (int i = 0; i < A->rows; i++) {
+      for (int j = 0; j < B->columns; j++) {
+        for (int k = 0; k < A->columns; j++) {
+          result->matrix[i][j] = A->matrix[i][k] * B->matrix[k][j];
+      }
+    }
+  }
+
+  return errorCode;
+}
+
 int s21_transpose(matrix_t *A, matrix_t *result) {
   int errorCode = Error;
   
@@ -56,6 +131,29 @@ int s21_transpose(matrix_t *A, matrix_t *result) {
         for (int j = 0; j < A->columns; ++j) {
             result->matrix[i][j] = A->matrix[j][i];
         }
+    }
+  }
+
+  return errorCode;
+}
+
+int s21_calc_complements(matrix_t *A, matrix_t *result) {
+  int errorCode = Error;
+
+  if (A->rows != A->columns) {
+    errorCode = CalcError;
+  } else if (A != NULL || result != NULL){
+    int errorCode = OK;
+    s21_create_matrix(A->columns, A->rows, result);
+
+    if (A->rows == 1 && A->columns == 1) {
+      result->matrix[0][0] = 1;
+    } else {
+      for (int i = 0; i < A->rows; i++) {
+        for (int j = 0; j < B->columns; j++) {
+          //result->matrix[i][j] = calc_algebraic_addition(i, j, A);
+        }
+      }
     }
   }
 
