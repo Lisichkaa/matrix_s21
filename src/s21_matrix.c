@@ -151,7 +151,7 @@ int s21_calc_complements(matrix_t *A, matrix_t *result) {
       result->matrix[0][0] = 1;
     } else {
       for (int i = 0; i < A->rows; i++) {
-        for (int j = 0; j < B->columns; j++) {
+        for (int j = 0; j < A->columns; j++) {
           //result->matrix[i][j] = calc_algebraic_addition(i, j, A);
         }
       }
