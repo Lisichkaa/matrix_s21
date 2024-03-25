@@ -115,6 +115,7 @@ int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
           result->matrix[i][j] = A->matrix[i][k] * B->matrix[k][j];
       }
     }
+    }
   }
 
   return errorCode;
